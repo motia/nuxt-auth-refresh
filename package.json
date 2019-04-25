@@ -1,0 +1,22 @@
+{
+  "name": "nuxt-auth-refresh",
+  "version": "1.0.0",
+  "description": "An ad hoc module to add authentication refresh to @nuxtjs/auth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haosx86/nuxt-auth-refresh.git"
+  },
+  "keywords": [
+    "nuxt"
+  ],
+  "author": "Mouti'a Benachour <motie.benachour@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haosx86/nuxt-auth-refresh/issues"
+  },
+  "homepage": "https://github.com/haosx86/nuxt-auth-refresh#readme"
+}
