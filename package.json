@@ -1,6 +1,6 @@
 {
   "name": "nuxt-auth-refresh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An ad hoc module to add authentication refresh to @nuxtjs/auth",
   "main": "index.js",
   "scripts": {
