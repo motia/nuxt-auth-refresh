@@ -2,7 +2,7 @@ import path from 'path'
 
 export default function (moduleOptions) {
   this.addPlugin({
-    src: path.resolve(__dirname, 'src', 'plugin.js'),
+    src: path.resolve(__dirname, 'plugin.js'),
     options: Object.assign({
       vuexNamespace: 'refreshAuth',
       storageKey: 'my_refresh_token_key',
