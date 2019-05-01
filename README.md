@@ -1,5 +1,6 @@
 
 An ad hoc module to add authentication refresh to @nuxtjs/auth
+[![Build Status](https://travis-ci.com/haosx86/nuxt-auth-refresh.svg?branch=master)](https://travis-ci.com/haosx86/nuxt-auth-refresh)
 
 ## Setup
 

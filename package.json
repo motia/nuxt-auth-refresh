@@ -4,7 +4,7 @@
   "description": "An ad hoc module to add authentication refresh to @nuxtjs/auth",
   "main": "dist/index.js",
   "scripts": {
-    "test": "babel src > true",
+    "test": "babel src > /dev/null",
     "build": "babel src --out-dir dist"
   },
   "repository": {
