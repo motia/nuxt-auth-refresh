@@ -1,10 +1,11 @@
 {
   "name": "nuxt-auth-refresh",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "An ad hoc module to add authentication refresh to @nuxtjs/auth",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,18 @@
   "bugs": {
     "url": "https://github.com/haosx86/nuxt-auth-refresh/issues"
   },
-  "homepage": "https://github.com/haosx86/nuxt-auth-refresh#readme"
+  "homepage": "https://github.com/haosx86/nuxt-auth-refresh#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-eslint": "^10.0.1",
+    "babel-preset-minify": "^0.5.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-standard": "^4.0.0"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.4.4"
+  }
 }
