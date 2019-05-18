@@ -1,5 +1,4 @@
-
-An ad hoc module to add authentication refresh to @nuxtjs/auth
+An ad-hoc module to periodically refresh @nuxtjs/auth for the local scheme.
 
 ## Setup
 
@@ -12,8 +11,22 @@ Register the module before @nuxtjs/auth and @nuxtjs/axios
         ['@nuxtjs/axios', config.axios],
     ]
 ```
+The module will automatically start the refresh interval after logging in.
 
+You should add a client side plugin to start the refresh interval for users authenticated from stored token.
+``` 
+    export default ({app, store}) {
+        await (
+            app.$auth.loggedIn ? app.$auth.fetchUserOnce().catch((e) => {}) : null
+        )
 
+        if(app.$auth.user) {
+            store.dispatch('refreshAuth/initRefreshInterval')
+        }
+    }
+
+```
+The plugin will che
 ## Options
 
 ```
@@ -27,7 +40,10 @@ Register the module before @nuxtjs/auth and @nuxtjs/axios
       // the link for login
       loginUrl: '/auth/login',
       
-      // token key in login success response and refresh request
-      refreshTokenKey: 'refresh_token'
+      // access token key in login success response and refresh request
+      refreshTokenKey: 'access_token',
+
+      // refresh token key in login success response and refresh request
+      refreshTokenKey: 'refresh_token',
     }
 ```
