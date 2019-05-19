@@ -6,7 +6,7 @@ const ACCESS_TOKEN_KEY = '<%= options.accessTokenKey %>'
 const REFRESH_TOKEN_KEY = '<%= options.refreshTokenKey %>'
 const REFRESH_URL = '<%= options.refreshUrl %>'
 const REFRESH_USING_HEADER = '<%= options.refreshUsingHeader %>'
-const REFRESH_PERIOD = '<%= options.refreshPeriod %>'
+const REFRESH_PERIOD = '<%= options.refreshPeriod %>' * 1000
 
 const state = () => ({refreshInterval: null})
 
