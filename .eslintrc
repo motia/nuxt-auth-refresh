@@ -1,0 +1,28 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base"
+  ],
+  "rules": {
+    "indent": ["error", 2],
+    "comma-dangle": 0,
+    "template-curly-spacing": 0,
+    "arrow-parens": 0,
+    "linebreak-style": 0,
+    "semi": [2, "never"]
+  }
+}
+  

@@ -2,7 +2,7 @@ import path from 'path'
 
 export default function (moduleOptions) {
   this.addPlugin({
-    src: path.resolve(__dirname, 'src', 'plugin.js'),
+    src: path.resolve(__dirname, 'plugin.js'),
     ssr: false,    
     fileName: 'refresh-auth.js',
     options: Object.assign({

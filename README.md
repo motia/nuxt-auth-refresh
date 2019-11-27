@@ -1,4 +1,5 @@
 An ad-hoc module to periodically refresh @nuxtjs/auth for the local scheme.
+[![Build Status](https://travis-ci.com/haosx86/nuxt-auth-refresh.svg?branch=master)](https://travis-ci.com/haosx86/nuxt-auth-refresh)
 
 ## Setup
 - Install the npm package
