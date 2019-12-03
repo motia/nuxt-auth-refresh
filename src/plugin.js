@@ -7,6 +7,7 @@ const REFRESH_TOKEN_KEY = '<%= options.refreshTokenKey %>'
 const REFRESH_URL = '<%= options.refreshUrl %>'
 const REFRESH_USING_HEADER = '<%= options.refreshUsingHeader %>'
 const REFRESH_PERIOD = '<%= options.refreshPeriod %>' * 1000
+const AUTH_PROVER = '<%= options.authProvider %>'
 
 const state = () => ({refreshInterval: null})
 
@@ -62,7 +63,7 @@ const actions = {
         }
       )
       
-      this.$auth.setToken('local', responseData[ACCESS_TOKEN_KEY])
+      this.$auth.setToken(AUTH_PROVER, responseData[ACCESS_TOKEN_KEY])
       this.$axios.setHeader(
         'Authorization',
         'Bearer ' + responseData[ACCESS_TOKEN_KEY]

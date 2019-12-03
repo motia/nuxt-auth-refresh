@@ -13,6 +13,7 @@ export default function (moduleOptions) {
       refreshUrl: '/auth/refresh',
       accessTokenKey: 'access_token',
       refreshTokenKey: 'refresh_token',
+      authProvider: 'local',
       refreshPeriod: 1800,
       refreshUsingHeader: false
     }, moduleOptions)
