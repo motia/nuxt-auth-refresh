@@ -52,7 +52,7 @@ plugins: [
   loginUrl: '/auth/login',
 
   // access token key in login success response and refresh request
-  refreshTokenKey: 'access_token',
+  accessTokenKey: 'access_token',
 
   // refresh token key in login success response and refresh request
   refreshTokenKey: 'refresh_token',
