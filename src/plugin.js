@@ -78,7 +78,7 @@ const actions = {
       throw new Error('Refresh token is required')
     }
 
-    try {      
+    try {
       const responseData = await _attemptRefresh(this.$auth, this.$axios, refreshToken)
       commit(
         'refreshToken',
@@ -86,7 +86,11 @@ const actions = {
       )
     } catch (e) {
       dispatch('stopRefreshInterval')
-      throw e
+      if (this.$authRefresh._onErrorhandler) {
+        this.$authRefresh._onErrorhandler(e)
+      } else {
+        throw e
+      }
     }
   }
 }
@@ -95,7 +99,7 @@ const storeModule = {
   state, actions, mutations, namespaced: true
 }
 
-export default ({$axios, store}) => {
+export default ({$axios, store}, inject) => {
   store.registerModule(VUEX_NAMESPACE, storeModule, {
     preserveState: Boolean(store.state[VUEX_NAMESPACE])
   })
@@ -118,5 +122,14 @@ export default ({$axios, store}) => {
     }
 
     return response
+  })
+  inject('authRefresh', {
+    _onErrorhandler: null,
+    initRefreshInterval () {
+      store.dispatch(VUEX_NAMESPACE + '/initRefreshInterval')
+    },
+    onRefreshError(handler) {
+      this._onErrorhandler = handler
+    }
   })
 }
