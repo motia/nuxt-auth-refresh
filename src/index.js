@@ -1,6 +1,6 @@
-import path from 'path'
+const path = require('path')
 
-export default function (moduleOptions) {
+module.exports = function (moduleOptions) {
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),
     ssr: false,    
@@ -8,12 +8,13 @@ export default function (moduleOptions) {
     options: Object.assign({
       vuexNamespace: 'refreshAuth',
       storageKey: 'my_refresh_token_key',
+      authStrategy: 'local',
+      authScheme: 'local',
       loginUrl: '/auth/login',
       logoutUrl: '/auth/logout',
       refreshUrl: '/auth/refresh',
       accessTokenKey: 'access_token',
       refreshTokenKey: 'refresh_token',
-      authProvider: 'local',
       refreshPeriod: 1800,
       refreshUsingHeader: false
     }, moduleOptions)

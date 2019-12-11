@@ -7,7 +7,33 @@ const REFRESH_TOKEN_KEY = '<%= options.refreshTokenKey %>'
 const REFRESH_URL = '<%= options.refreshUrl %>'
 const REFRESH_USING_HEADER = '<%= options.refreshUsingHeader %>'
 const REFRESH_PERIOD = '<%= options.refreshPeriod %>' * 1000
-const AUTH_PROVER = '<%= options.authProvider %>'
+const AUTH_STRATEGY = '<%= options.authStrategy %>'
+const AUTH_SCHEME = '<%= options.authScheme %>'
+
+const _attemptRefresh = AUTH_SCHEME === 'local' ? 
+  async ($auth, $axios, refreshToken) => {
+    const responseData = await $auth.request(
+      {
+        url: REFRESH_URL,
+        method: 'post',
+        data: {
+          [REFRESH_TOKEN_KEY]: refreshToken
+        }
+      }
+    )
+    $auth.setToken(AUTH_STRATEGY, responseData[ACCESS_TOKEN_KEY])
+    $axios.setHeader(
+      'Authorization',
+      'Bearer ' + responseData[ACCESS_TOKEN_KEY]
+    )
+    return responseData
+  } : ($auth, _, refreshToken) => {
+    return $auth.loginWith(AUTH_STRATEGY, {
+      data: {
+        refresh_token: refreshToken
+      }
+    })
+  }
 
 const state = () => ({refreshInterval: null})
 
@@ -46,39 +72,25 @@ const actions = {
   stopRefreshInterval ({commit}) {
     commit('refreshInterval', null)
   },
-  async attemptRefresh ({commit, dispatch}) {
+  async attemptRefresh ({dispatch, commit}) {
     const refreshToken = this.$auth.$storage.getUniversal(STORAGE_KEY)
     if (!refreshToken && !REFRESH_USING_HEADER) {
       throw new Error('Refresh token is required')
     }
 
     try {
-      const responseData = await this.$auth.request(
-        {
-          url: REFRESH_URL,
-          method: 'post',
-          data: {
-            [REFRESH_TOKEN_KEY]: refreshToken
-          }
-        }
-      )
-      
-      this.$auth.setToken(AUTH_PROVER, responseData[ACCESS_TOKEN_KEY])
-      this.$axios.setHeader(
-        'Authorization',
-        'Bearer ' + responseData[ACCESS_TOKEN_KEY]
-      )
-
+      const responseData = await _attemptRefresh(this.$auth, this.$axios, refreshToken)
       commit(
         'refreshToken',
         responseData[REFRESH_TOKEN_KEY] || null
       )
-      
     } catch (e) {
       dispatch('stopRefreshInterval')
-      if(e.response && e.response.status === 401) {
-        throw new 'Refresh unauthenticated'
-      } 
+      if (this.$authRefresh._onErrorhandler) {
+        this.$authRefresh._onErrorhandler(e)
+      } else {
+        throw e
+      }
     }
   }
 }
@@ -87,7 +99,7 @@ const storeModule = {
   state, actions, mutations, namespaced: true
 }
 
-export default ({$axios, store}) => {
+export default ({$axios, store}, inject) => {
   store.registerModule(VUEX_NAMESPACE, storeModule, {
     preserveState: Boolean(store.state[VUEX_NAMESPACE])
   })
@@ -110,5 +122,14 @@ export default ({$axios, store}) => {
     }
 
     return response
+  })
+  inject('authRefresh', {
+    _onErrorhandler: null,
+    initRefreshInterval () {
+      store.dispatch(VUEX_NAMESPACE + '/initRefreshInterval')
+    },
+    onRefreshError(handler) {
+      this._onErrorhandler = handler
+    }
   })
 }

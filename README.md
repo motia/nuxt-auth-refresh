@@ -28,7 +28,7 @@ export default ({app, store}) => {
     )
 
     if(app.$auth.user) {
-        store.dispatch('refreshAuth/initRefreshInterval')
+        app.$authRefresh.initRefreshInterval()
     }
 }
 
@@ -38,6 +38,14 @@ plugins: [
     '~/plugins/refresh-auth-token'
 ]
 ```
+
+- You can attach an error handler for the refresh attempts
+```js
+app.$authRefresh.onRefreshError((e) => {
+    // handle the token refresh here
+})
+```
+
 ## Options
 
 ```js
