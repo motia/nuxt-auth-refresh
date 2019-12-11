@@ -26,6 +26,7 @@ const _attemptRefresh = AUTH_SCHEME === 'local' ?
       'Authorization',
       'Bearer ' + responseData[ACCESS_TOKEN_KEY]
     )
+    return responseData
   } : ($auth, _, refreshToken) => {
     return $auth.loginWith(AUTH_STRATEGY, {
       data: {
@@ -71,19 +72,21 @@ const actions = {
   stopRefreshInterval ({commit}) {
     commit('refreshInterval', null)
   },
-  async attemptRefresh ({dispatch}) {
+  async attemptRefresh ({dispatch, commit}) {
     const refreshToken = this.$auth.$storage.getUniversal(STORAGE_KEY)
     if (!refreshToken && !REFRESH_USING_HEADER) {
       throw new Error('Refresh token is required')
     }
 
     try {      
-      await _attemptRefresh(this.$auth, this.$axios, refreshToken)
+      const responseData = await _attemptRefresh(this.$auth, this.$axios, refreshToken)
+      commit(
+        'refreshToken',
+        responseData[REFRESH_TOKEN_KEY] || null
+      )
     } catch (e) {
       dispatch('stopRefreshInterval')
-      if(e.response && e.response.status === 401) {
-        throw new 'Refresh unauthenticated'
-      } 
+      throw e
     }
   }
 }
