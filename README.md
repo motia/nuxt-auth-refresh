@@ -33,10 +33,11 @@ export default ({app, store}) => {
 }
 
 // nuxt.config.js
-plugins: [
-    ...
-    '~/plugins/refresh-auth-token'
-]
+auth: {
+    plugins: [
+        '~/plugins/refresh-auth-token'
+    ]
+}
 ```
 
 - You can attach an error handler for the refresh attempts
