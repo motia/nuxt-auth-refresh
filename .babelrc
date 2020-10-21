@@ -1,4 +1,0 @@
-{
-  "presets": ["@babel/env", "minify"],
-  "plugins": ["@babel/transform-runtime"]
-}

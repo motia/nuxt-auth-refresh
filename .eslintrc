@@ -4,14 +4,6 @@
     "browser": true,
     "node": true
   },
-  "parserOptions": {
-    "parser": "babel-eslint",
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
   "extends": [
     "eslint:recommended",
     "airbnb-base"
