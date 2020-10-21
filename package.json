@@ -1,6 +1,6 @@
 {
   "name": "@motia/nuxt-auth-refresh",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "An ad hoc module to add authentication refresh to @nuxtjs/auth",
   "main": "src/index.js",
   "repository": {

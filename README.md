@@ -1,18 +1,19 @@
 An ad-hoc module to periodically refresh @nuxtjs/auth for the local scheme.
-[![Build Status](https://travis-ci.com/haosx86/nuxt-auth-refresh.svg?branch=master)](https://travis-ci.com/haosx86/nuxt-auth-refresh)
 
 ## Setup
 - Install the npm package
 ```bash
-npm install nuxt-auth-refresh
+npm install @motia/nuxt-auth-refresh
 # or 
-yarn add nuxt-auth-refresh
+yarn add @motia/nuxt-auth-refresh
 ```
 - Register the module before @nuxtjs/auth and @nuxtjs/axios
 ```js
 // nuxt.config.js
+buildModules: [
+    ['@motia/nuxt-auth-refresh', config.refreshAuth],
+],
 modules: [
-    ['nuxt-auth-refresh', config.refreshAuth],
     ['@nuxtjs/auth', config.auth],
     ['@nuxtjs/axios', config.axios],
 ]
@@ -35,7 +36,7 @@ export default ({app, store}) => {
 // nuxt.config.js
 auth: {
     plugins: [
-        '~/plugins/refresh-auth-token'
+        { src: '~/plugins/refresh-auth-token', ssr: false }
     ]
 }
 ```
